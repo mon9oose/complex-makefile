@@ -8,17 +8,17 @@ CXXFLAGS = -std=c++11 -Wno-deprecated
 OUT_DIR = ./bin
 LIB_DIR = ./lib
 
-SUB_DIR = param
+SUB_DIR = $(filter-out lib bin, $(patsubst %/., %, $(wildcard */.)))
 # SUB_DIR_INCS = $(wildcard $(foreach dir, $(SUB_DIR), $(dir)/*.hpp))
 # SUB_DIR_SRCS = $(wildcard $(foreach dir, $(SUB_DIR), $(dir)/*.cpp))
 INCS = $(wildcard *.hpp $(foreach f, $(SUB_DIR), $(f)/*.hpp)) # $(wildcard *.hpp param/*.hpp) = param/param.hpp
 SRCS = $(wildcard *.cpp $(foreach f, $(SUB_DIR), $(f)/*.cpp))
 
 INCS_DIR = $(addprefix -I, $(SUB_DIR))
-CROW_INCS = -I/Users/user/Documents/search-env/package/crow-1.0/include -I/opt/homebrew/Cellar/boost/1.80.0/include
-UNITTEST_INCS = -I/opt/homebrew/Cellar/googletest/1.12.1_1/include
-UNITTEST_LIBS = -L/opt/homebrew/Cellar/googletest/1.12.1_1/lib
-UNITTEST_LIBS_NAME = -lgtest -lgtest_main
+CROW_INCS = -I/Users/user/Documents/search-env/package/crow-1.0/include
+UNITTEST_INCS = -I/opt/homebrew/Cellar/boost/1.81.0_1/include
+UNITTEST_LIBS = -L/opt/homebrew/Cellar/boost/1.81.0_1/lib
+UNITTEST_LIBS_NAME = -lboost_unit_test_framework
 
 NOTDIR_SRC = $(notdir $(SRCS))
 NOTDIR_SRC_FOR_TARGET = $(filter-out $(UNITTEST).cpp $(CROW).cpp %_unittest.cpp, $(NOTDIR_SRC))
@@ -46,7 +46,7 @@ $(CROW): $(OBJS)
 	$(CC) $(CXXFLAGS) $(OBJS_FOR_CROW) -o $(OUT_DIR)/$@
 
 PHONY += $(UNITTEST)
-$(UNITTEST): $(OBJS)
+$(UNITTEST): $(OBJS_FOR_UNITTEST)
 	$(CC) $(CXXFLAGS) $(UNITTEST_LIBS) $(UNITTEST_LIBS_NAME) $(OBJS_FOR_UNITTEST) -o $(OUT_DIR)/$@
 
 PHONY += clean
@@ -60,6 +60,7 @@ makedir:
 
 PHONY += echoes
 echoes:
+	@echo "SUBDIR : $(SUB_DIR)"
 	@echo "NOTDIR_SRCS : $(NOTDIR_SRC)"
 	@echo "NOTDIR_SRCS_FOR_TARGET : $(NOTDIR_SRC_FOR_TARGET)"
 	@echo "NOTDIR_SRCS_FOR_UNITTEST : $(NOTDIR_SRC_FOR_UNITTEST)"

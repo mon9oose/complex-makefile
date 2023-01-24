@@ -1,4 +1,5 @@
 #include "param.hpp"
+#include <iostream>
 
 Param::Param(std::string a, std::string b, std::string c, std::string d)
 {
@@ -6,9 +7,14 @@ Param::Param(std::string a, std::string b, std::string c, std::string d)
     param2 = b;
     param3 = c;
     param4 = d;
+
+    std::cout << "construct param" << std::endl;
 }
 
-Param::~Param() {}
+Param::~Param()
+{
+    std::cout << "destory param" << std::endl;
+}
 
 const std::string &Param::GetParam1()
 {

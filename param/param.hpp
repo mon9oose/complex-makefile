@@ -1,6 +1,7 @@
 #ifndef __PARAM_HPP__
 #define __PARAM_HPP__
 
+#include <memory>
 #include <string>
 
 class Param
@@ -20,5 +21,8 @@ public:
     const std::string &GetParam3();
     const std::string &GetParam4();
 };
+
+typedef std::unique_ptr<Param> UP_PARAM;
+extern UP_PARAM param;
 
 #endif

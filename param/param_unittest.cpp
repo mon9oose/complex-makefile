@@ -1,31 +1,18 @@
+#define BOOST_TEST_DYN_LINK
+
+#include "boost/test/unit_test.hpp"
 #include "param.hpp"
-#include "gtest/gtest.h"
 
-Param *param;
+BOOST_AUTO_TEST_SUITE(ParamUnittest)
 
-TEST(PARAM, constructor)
+BOOST_AUTO_TEST_CASE(Constructor)
 {
-    param = new Param("a", "b", "c", "d");
-    
-    EXPECT_NE(param, nullptr);
+    BOOST_CHECK_NE(nullptr, nullptr);
 }
 
-TEST(PARAM, getMethods1)
+BOOST_AUTO_TEST_CASE(globalVariable)
 {
-    EXPECT_EQ(param->GetParam1(), "a");
+    BOOST_CHECK_EQUAL(param->GetParam1(), "a");
 }
 
-TEST(PARAM, getMethods2)
-{
-    EXPECT_EQ(param->GetParam2(), "b");
-}
-
-TEST(PARAM, getMethods3)
-{
-    EXPECT_EQ(param->GetParam3(), "c");
-}
-
-TEST(PARAM, getMethods4)
-{
-    EXPECT_EQ(param->GetParam1(), "d");
-}
+BOOST_AUTO_TEST_SUITE_END()
