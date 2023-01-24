@@ -15,9 +15,9 @@ INCS = $(wildcard *.hpp $(foreach f, $(SUB_DIR), $(f)/*.hpp)) # $(wildcard *.hpp
 SRCS = $(wildcard *.cpp $(foreach f, $(SUB_DIR), $(f)/*.cpp))
 
 INCS_DIR = $(addprefix -I, $(SUB_DIR))
-CROW_INCS = -I/Users/user/Documents/search-env/package/crow-1.0/include
-UNITTEST_INCS = -I/opt/homebrew/Cellar/boost/1.81.0_1/include
-UNITTEST_LIBS = -L/opt/homebrew/Cellar/boost/1.81.0_1/lib
+CROW_INCS = -I./utils
+UNITTEST_INCS = -I/opt/homebrew/Cellar/boost@1.76/1.76.0_3/include
+UNITTEST_LIBS = -L/opt/homebrew/Cellar/boost@1.76/1.76.0_3/lib
 UNITTEST_LIBS_NAME = -lboost_unit_test_framework
 
 NOTDIR_SRC = $(notdir $(SRCS))
